@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LaTex</title>
+
+    <link rel="stylesheet" href="common.css">
+    <script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="common.js?v=20210706"></script>
+
+    <script type="text/javascript">
+        // window.addEventListener('message', function (msg) {
+        //     console.log(msg);
+        // },false);
+        
+        currentSymbol.cmdName=currentSymbol.cmdName||'LaTex';
+
+        currentSymbol.inputCmp = new SymbolInputComponent(['cmdName',new InputCmp('#symbolForm textarea[name=latex]')], '${1}', currentSymbol.cmdName+interValSplitter+'${1}');
+
+        $(function () {
+            $('#symbolForm input,#symbolForm textarea').on('change',function () {
+                setImgWithBase64();
+            })
+        })
+    </script>
+
+</head>
+<body>
+
+<table border="0" class="container">
+
+    <tr>
+        <td class="preview">
+            <fieldset style="min-height: 120px;">
+                <legend>预览</legend>
+                <img style="vertical-align: middle" letex=""
+                     src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+            </fieldset>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" style="padding-top:20px; ">
+            <form id="symbolForm">
+                <textarea style="width: 460px;height: 120px;" name="latex" type="text" placeholder="LaTex表达式"></textarea>
+            </form>
+        </td>
+    </tr>
+
+
+</table>
+
+</body>
+</html>

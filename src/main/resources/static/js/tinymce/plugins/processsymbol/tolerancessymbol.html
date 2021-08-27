@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>形位公差</title>
+
+    <link rel="stylesheet" href="common.css">
+    <script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="common.js?v=20210706"></script>
+    <style type="text/css">
+        @font-face {
+            font-face-name: GDT;
+            font-family: GDT;
+            src: url("GDT.ttf");
+        }
+    </style>
+
+    <script type="text/javascript">
+        //\overset{备注}\tolerances{是否全周符号}{公差代号}{公差数值、相关原则、可逆要求}{基准一}{基准二}{基准三}
+        currentSymbol.cmdName = currentSymbol.cmdName || '形位公差';
+        var interValTplAry = [currentSymbol.cmdName, '${1}', '${2}', '${3}',
+            '${4}', '${5}', '${6}', '${7}', '${8}', '${9}', '${10}', '${11}', '${12}', '${13}','${14}'];
+        var symbolTplFun = function () {
+            var symbolStr = '\\tolerances{${1}}{${2}}{${3}${4}${5}${6}${7}}{${8}${9}}{${10}${11}}{${12}${13}}';
+            var remark=$('#symbolForm input[name=remark]').val();
+            if(remark){
+                symbolStr='\\overset{${14}}'+symbolStr;
+            }
+            return symbolStr;
+        };
+        var symbolInputs = [
+            'cmdName',
+            new InputCmp('#symbolForm input[name=quanZhou]',true),
+            new InputCmp('#symbolForm select[name=stype]',false),
+            {
+                getValue:function () {
+                    var ss=[];
+                    $('#symbolForm input[name=gcCategory]:checked').each(function () {
+                        ss.push($(this).val());
+                    });
+                    return ss.join('');
+                },
+                setValue:function (v) {
+                    v=v||'';
+                    $('#symbolForm input[name=gcCategory]').each(function () {
+                        if(v.indexOf($(this).val())>=0){
+                            $(this).attr('checked',true)
+                        }
+                    });
+                }
+            },
+            'gcVal',
+            new InputCmp('#symbolForm select[name=xzxd]'),
+            new InputCmp('#symbolForm select[name=xgyz]'),
+            new InputCmp('#symbolForm input[name=knyq]',true),
+            'baseVal1',
+            new InputCmp('#symbolForm select[name=baseYz1]'),
+            'baseVal2',
+            new InputCmp('#symbolForm select[name=baseYz2]'),
+            'baseVal3',
+            new InputCmp('#symbolForm select[name=baseYz3]'),
+            'remark'
+        ];
+        currentSymbol.inputCmp = new SymbolInputComponent(
+            symbolInputs,
+            symbolTplFun,
+            interValTplAry.join(interValSplitter)
+        );
+        $(function () {
+            $('#symbolForm input,#symbolForm select').on('change', function () {
+                setImgWithBase64();
+            });
+            setImgWithBase64();
+        })
+    </script>
+
+</head>
+<body>
+
+<table border="0" class="container">
+
+    <tr>
+        <td class="preview">
+            <fieldset>
+                <legend>预览</legend>
+                <img style="vertical-align: middle" letex=""
+                     src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+            </fieldset>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" style="padding-top:20px; ">
+            <form id="symbolForm" class="inputgrid">
+                <table border="0">
+                    <tr>
+                        <td rowspan="2">
+                            全周符号<input type="checkbox" name="quanZhou" value="1">
+                        </td>
+                        <td>
+                            公差代号
+                        </td>
+                        <td>
+                            公差值
+                        </td>
+                        <td>
+                            形状限定
+                        </td>
+                        <td>
+                            相关原则
+                        </td>
+                        <td rowspan="2">
+                            可逆要求<input type="checkbox" name="knyq" value="Ⓡ">
+                        </td>
+                        <td>
+                            基准1
+                        </td>
+                        <td>
+                            基准2
+                        </td>
+                        <td>
+                            基准3
+                        </td>
+                        <td>
+                            备注
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            <select name="stype" style="font-family: GDT" size="12">
+                                <option value="a" selected> a&nbsp;&nbsp;倾斜度</option>
+                                <option value="b"> b&nbsp;&nbsp;垂直度</option>
+                                <option value="c"> c&nbsp;&nbsp;平面度</option>
+                                <option value="d"> d&nbsp;&nbsp;面轮廓度</option>
+                                <option value="e"> e&nbsp;&nbsp;圆度</option>
+                                <option value="f"> f&nbsp;&nbsp;平行度</option>
+                                <option value="g"> g&nbsp;&nbsp;圆柱度</option>
+                                <option value="h"> h&nbsp;&nbsp;圆跳动</option>
+                                <option value="i"> i&nbsp;&nbsp;对称度</option>
+                                <option value="j"> j&nbsp;&nbsp;位置度</option>
+                                <option value="k"> k&nbsp;&nbsp;线轮廓度</option>
+                                <option value="r"> r&nbsp;&nbsp;同轴度</option>
+                                <option value="t"> t&nbsp;&nbsp;全跳动</option>
+                                <option value="u"> u&nbsp;&nbsp;直线度</option>
+                                <option value="无">无</option>
+                            </select>
+                        </td>
+                        <td>
+                            <div>
+                                <label><input type="checkbox" name="gcCategory" value="S">S</label>
+                                <label><input type="checkbox" name="gcCategory" value="ф">ф</label>
+                            </div>
+                            <div><input type="number" name="gcVal" style="width: 80px"></div>
+                        </td>
+                        <td>
+                            <select name="xzxd">
+                                <option value=""></option>
+                                <option value="(+)">(+)</option>
+                                <option value="(>)">(&gt;)</option>
+                                <option value="(-)">(-)</option>
+                                <option value="">(&lt;)</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="xgyz">
+                                <option value=""></option>
+                                <option value="Ⓟ">(P)</option>
+                                <option value="Ⓜ">(M)</option>
+                                <option value="Ⓔ">(E)</option>
+                                <option value="Ⓛ">(L)</option>
+                                <option value="Ⓕ">(F)</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="number" name="baseVal1" style="width: 60px">
+                            <select name="baseYz1">
+                                <option value=""></option>
+                                <option value="Ⓜ">(M)</option>
+                                <option value="Ⓔ">(E)</option>
+                                <option value="Ⓛ">(L)</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="number" name="baseVal2" style="width: 60px">
+                            <select name="baseYz2">
+                                <option value=""></option>
+                                <option value="Ⓜ">(M)</option>
+                                <option value="Ⓔ">(E)</option>
+                                <option value="Ⓛ">(L)</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="number" name="baseVal3" style="width: 60px">
+                            <select name="baseYz3">
+                                <option value=""></option>
+                                <option value="Ⓜ">(M)</option>
+                                <option value="Ⓔ">(E)</option>
+                                <option value="Ⓛ">(L)</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" name="remark" style="width: 90px">
+                        </td>
+                    </tr>
+                </table>
+
+
+            </form>
+        </td>
+    </tr>
+
+
+</table>
+
+</body>
+</html>

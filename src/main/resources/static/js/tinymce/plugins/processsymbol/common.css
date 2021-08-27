@@ -1,0 +1,25 @@
+/**
+ *
+ */
+
+.container{
+    width: 100%;
+}
+.container .preview fieldset{
+}
+
+#symbolForm input{
+    margin: 5px;
+    padding: 3px;
+    height: 22px;
+}
+
+.inputgrid table {
+    margin-bottom: 2px;
+    border-collapse: collapse;
+}
+.inputgrid td, .grid th {
+    padding: 5px 10px;
+    border: 1px solid #000000;
+    vertical-align: middle;
+}

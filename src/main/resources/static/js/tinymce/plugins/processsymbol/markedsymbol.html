@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图符符号</title>
+
+    <link rel="stylesheet" href="common.css">
+    <script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="common.js?v=20210706"></script>
+    <script type="text/javascript">
+        currentSymbol.cmdName=currentSymbol.cmdName||'图符符号';
+        currentSymbol.inputCmp = new SymbolInputComponent(
+            ['cmdName',{setValue:function (v) {
+                    $('#symbolForm input[name=stype]').each(function (i,item) {
+                        if(v== $(this).val()){
+                            $(this).attr('checked',true);
+                        }
+                    })
+                },getValue:function () {
+                    return $('#symbolForm input[name=stype]:checked').val();
+                }},'baseVal'],
+            '\\${1}{${2}}',
+            currentSymbol.cmdName+interValSplitter+'${1}'+interValSplitter+'${2}'
+        );
+        $(function () {
+            $('#symbolForm input').on('change',function () {
+                setImgWithBase64();
+            })
+        })
+    </script>
+    <style type="text/css">
+        #symbolForm>div>input{
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<table border="0" class="container">
+
+    <tr>
+        <td class="preview">
+            <fieldset>
+                <legend>预览</legend>
+                <img style="vertical-align: middle" letex=""
+                     src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+            </fieldset>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" style="padding-top:20px; ">
+            <form id="symbolForm">
+                <div>
+                   <input checked type="radio" name="stype" value="circled" >◯
+                    <input type="radio" name="stype" value="boxed" >▭
+                    <input type="radio" name="stype" value="triangled" >▷
+                    <input type="radio" name="stype" value="xrightarrow" >⇁
+                    <input type="radio" name="stype" value="overline" >￣
+                </div>
+                <input style="width:160px" name="baseVal" type="text" placeholder="文字">
+            </form>
+        </td>
+    </tr>
+
+
+</table>
+
+</body>
+</html>

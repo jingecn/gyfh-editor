@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表面粗糙度</title>
+
+    <link rel="stylesheet" href="common.css">
+    <script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="common.js?v=20210706"></script>
+
+    <script type="text/javascript">
+
+        //\surfaceness{基本符号}{相同要求}{上限值}{下限值}{加工余量}{纹理方向}{加工方法}{表面结构要求1}{表面结构要2}
+        currentSymbol.cmdName = currentSymbol.cmdName || '表面粗糙度';
+        currentSymbol.inputCmp = new SymbolInputComponent(
+            [
+                'cmdName',
+                new InputCmp('#symbolForm input[name=stype]',true),
+                new InputCmp('#symbolForm input[name=sameRequire]',true),
+                new InputCmp('#symbolForm select[name=up]'),
+                new InputCmp('#symbolForm select[name=down]'),
+                'allowanceForMachining',
+                new InputCmp('#symbolForm select[name=textureDirection]'),
+                'manufacturingMethod',
+                'structureRequire1',
+                'structureRequire2'
+            ],
+            '\\surfaceness{${1}}{${2}}{${3}}{${4}}{${5}}{${6}}{${7}}{${8}}{${9}}',
+            [currentSymbol.cmdName ,'${1}' ,'${2}','${3}','${4}','${5}','${6}','${7}','${8}','${9}'].join(interValSplitter)
+        );
+        $(function () {
+            $('#symbolForm input,#symbolForm select').on('change', function () {
+                setImgWithBase64();
+            });
+            setImgWithBase64();
+        })
+    </script>
+    <style type="text/css">
+        .ccd-bg {
+
+        }
+
+        .ccd-bg1 {
+            background-image: url("images/ccd1.jpg");
+        }
+    </style>
+</head>
+<body>
+
+<table border="0" class="container">
+
+    <tr>
+        <td class="preview">
+            <fieldset>
+                <legend>预览</legend>
+                <img style="vertical-align: middle" letex=""
+                     src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+            </fieldset>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" style="padding-top:20px; ">
+            <form id="symbolForm">
+                <table border="0">
+                    <tr>
+                        <td>
+                            基本符号示例说明
+                            <img src="images/ccd-eq1.png">
+                        </td>
+                        <td>
+                            基本符号
+                            <input type="radio" value="1" name="stype" checked><img src="images/ccd1.jpg" width="24">
+                            <input type="radio" value="2" name="stype"><img src="images/ccd2.jpg" width="24">
+                            <input type="radio" value="3" name="stype"><img src="images/ccd3.jpg" width="24">
+                        </td>
+                        <td>
+                            <ul style="list-style: none">
+                                <li>
+                                    上限值
+                                    <select name="up" style="width: 80px;">
+                                        <option value=""></option>
+                                        <option value="0.012">0.012</option>
+                                        <option value="0.025">0.025</option>
+                                        <option value="0.05">0.05</option>
+                                        <option value="0.1">0.1</option>
+                                        <option value="0.2">0.2</option>
+                                        <option value="0.4">0.4</option>
+                                        <option value="0.8">0.8</option>
+                                        <option value="1.6">1.6</option>
+                                        <option value="3.2" selected="selected">3.2</option>
+                                        <option value="6.3">6.3</option>
+                                        <option value="12.5">12.5</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                        <option value="200">200</option>
+                                        <option value="400">400</option>
+                                        <option value="800">800</option>
+                                        <option value="1600">1600</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    下限值
+                                    <select name="down" style="width: 80px;">
+                                        <option value=""></option>
+                                        <option value="0.012">0.012</option>
+                                        <option value="0.025">0.025</option>
+                                        <option value="0.05">0.05</option>
+                                        <option value="0.1">0.1</option>
+                                        <option value="0.2">0.2</option>
+                                        <option value="0.4">0.4</option>
+                                        <option value="0.8">0.8</option>
+                                        <option value="1.6">1.6</option>
+                                        <option value="3.2" selected="selected">3.2</option>
+                                        <option value="6.3">6.3</option>
+                                        <option value="12.5">12.5</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                        <option value="200">200</option>
+                                        <option value="400">400</option>
+                                        <option value="800">800</option>
+                                        <option value="1600">1600</option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            完整符号示例说明
+                            <img src="images/ccd-eq2.png">
+                        </td>
+                        <td>
+                            <ul style="list-style: none">
+                                <li>
+                                    相同要求<input type="checkbox" name="sameRequire" value="1">
+                                </li>
+                                <li>
+                                    加工余量<input type="text" name="allowanceForMachining">
+                                </li>
+                                <li>
+                                    加工方法<input type="text" name="manufacturingMethod">
+                                </li>
+                                <li>
+                                    纹理方向
+                                    <select name="textureDirection" style="width: 60px;">
+                                        <option value=""></option>
+                                        <option value="=">=</option>
+                                        <option value="⊥">⊥</option>
+                                        <option value="X">X</option>
+                                        <option value="M">M</option>
+                                        <option value="C">C</option>
+                                        <option value="R">R</option>
+                                        <option value="P">P</option>
+                                        <option value="无">无</option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul style="list-style: none">
+                                <li>
+                                    表面结构要求1<input type="text" name="structureRequire1">
+                                </li>
+                                <li>
+                                    表面结构要求2<input type="text" name="structureRequire2">
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+
+
+</table>
+
+</body>
+</html>

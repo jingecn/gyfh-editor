@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tinymce</title>
+
+    <script src="js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script src="js/tinymce/langs/zh_CN.js" referrerpolicy="origin"></script>
+
+    <script>
+        var defaultFontsFormats = 'Andale Mono=andale mono,monospace;' + 'Arial=arial,helvetica,sans-serif;' + 'Arial Black=arial black,sans-serif;' + 'Book Antiqua=book antiqua,palatino,serif;' + 'Comic Sans MS=comic sans ms,sans-serif;' + 'Courier New=courier new,courier,monospace;' + 'Georgia=georgia,palatino,serif;' + 'Helvetica=helvetica,arial,sans-serif;' + 'Impact=impact,sans-serif;' + 'Symbol=symbol;' + 'Tahoma=tahoma,arial,helvetica,sans-serif;' + 'Terminal=terminal,monaco,monospace;' + 'Times New Roman=times new roman,times,serif;' + 'Trebuchet MS=trebuchet ms,geneva,sans-serif;' + 'Verdana=verdana,geneva,sans-serif;' + 'Webdings=webdings;' + 'Wingdings=wingdings,zapf dingbats';
+        var setting={
+            selector: '#mytextarea',
+            statusbar: false,
+            //width: 300,
+            height: 500,
+            //traget:,
+            branding:false,//隐藏 “由Tiny驱动”
+            draggable_modal: true,
+            font_formats: '微软雅黑=Microsoft YaHei,Helvetica Neue,PingFang SC,sans-serif;宋体=simsun,serif;'+defaultFontsFormats,
+            fontsize_formats: '11px 12px 14px 16px 18px 24px 36px 48px',
+            plugins: [
+                'advlist autolink link image lists charmap print preview hr anchor pagebreak',
+                'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+                'table emoticons template paste help processsymbol'
+            ],
+            menu: {
+                //file: { title: 'File', items: 'newdocument restoredraft | preview | print ' },
+                edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
+                view: { title: 'View', items: 'code | visualaid visualchars visualblocks | spellchecker | preview fullscreen' },
+                insert: { title: 'Insert', items: 'image link media template codesample inserttable | charmap emoticons hr | pagebreak nonbreaking anchor toc | insertdatetime' },
+                format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat | formats blockformats fontformats fontsizes align lineheight | forecolor backcolor | removeformat' },
+                tools: { title: 'Tools', items: 'spellchecker spellcheckerlanguage | code wordcount' },
+                table: { title: 'Table', items: 'inserttable | cell row column | tableprops deletetable' },
+                mpmChar:{title:'工艺符号',items:'markedsymbol surfacenesssymbol tolerancessymbol dimensionalsymbol fractionsymbol standardsymbol latexsymbol'},
+                help: { title: 'Help', items: 'help' }
+            },
+            menubar:'edit view insert format table mpmChar help',
+            toolbar_mode: 'sliding',
+            language: 'zh_CN',
+            processSymbalCfg:{
+                urlPrefix:'/',
+                htmlPath:'./js/tinymce',
+                interValSplitter:'┇'
+            },
+            contextmenu: 'copy link image imagetools table fractionsymbol standardsymbol markedsymbol dimensionalsymbol tolerancessymbol surfacenesssymbol latexsymbol',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+            //images_file_types:'jpeg,jpg,jpe,jfi,jif,jfif,png,gif,bmp,webp,svg+xml,svg',
+            paste_data_images:true,
+            extended_valid_elements: ''//"svg[*],defs[*],pattern[*],desc[*],metadata[*],g[*],mask[*],path[*],line[*],marker[*],rect[*],circle[*],ellipse[*],polygon[*],polyline[*],linearGradient[*],radialGradient[*],stop[*],image[*],view[*],text[*],textPath[*],title[*],tspan[*],glyph[*],symbol[*],switch[*],use[*]"
+        };
+       // tinymce.init(setting);
+        var ed = new tinymce.Editor('mytextarea', setting, tinymce.EditorManager);
+
+        ed.render();
+
+        //ed.execCommand('mceInsertContent',false,'<b style="color:red">ffff</b>')
+
+    </script>
+
+
+
+</head>
+<body>
+
+<h1>TinyMCE Quick Start Guide</h1>
+<form method="post">
+    <textarea id="mytextarea">Hello, World!</textarea>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>尺寸标准公差</title>
+
+    <link rel="stylesheet" href="common.css">
+    <script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="common.js?v=20210706"></script>
+
+    <script type="text/javascript">
+        currentSymbol.cmdName=currentSymbol.cmdName||'尺寸标准公差';
+        currentSymbol.inputCmp = new SymbolInputComponent(
+            ['cmdName',{setValue:function (v) {
+                    $('#symbolForm input[name=stype]').each(function (i,item) {
+                        if(v== $(this).val()){
+                            $(this).attr('checked',true);
+                        }
+                    })
+                },getValue:function () {
+                    return $('#symbolForm input[name=stype]:checked').val();
+                }},'baseVal'],
+            '\\${1}{${2}}',
+            currentSymbol.cmdName+interValSplitter+'${1}'+interValSplitter+'${2}'
+        );
+        $(function () {
+            $('#symbolForm input').on('change',function () {
+                setImgWithBase64();
+            })
+        })
+    </script>
+
+</head>
+<body>
+
+<table border="0" class="container">
+
+    <tr>
+        <td class="preview">
+            <fieldset>
+                <legend>预览</legend>
+                <img style="vertical-align: middle" letex=""
+                     src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+            </fieldset>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" style="padding-top:20px; ">
+            <form id="symbolForm">
+                <input style="width:160px" name="up" type="text" placeholder="上标">
+                <hr style="width:180px">
+                <input style="width:160px" name="down" type="text" placeholder="下标">
+            </form>
+        </td>
+    </tr>
+
+
+</table>
+
+</body>
+</html>
