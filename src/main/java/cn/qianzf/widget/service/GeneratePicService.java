@@ -26,6 +26,7 @@ import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.*;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -143,8 +144,10 @@ public class GeneratePicService {
             }
         });
         Document document = builder.parse(new ByteArrayInputStream(bs));
-        TransformerFactory tFactory = TransformerFactory.newInstance();
-        Transformer transformer = tFactory.newTransformer();
+        TransformerFactory factory = javax.xml.transform.TransformerFactory.newInstance();
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+        Transformer transformer = factory.newTransformer();
         transformer.setOutputProperty("encoding", "UTF-8");
         DOMSource source = new DOMSource(document);
         ByteArrayOutputStream svgs = new ByteArrayOutputStream();
