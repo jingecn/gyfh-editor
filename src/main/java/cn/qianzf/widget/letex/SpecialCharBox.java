@@ -20,6 +20,12 @@ public class SpecialCharBox extends Box {
     }
 
     @Override
+    protected void startDraw(Graphics2D g2, float x, float y) {
+        setWidth(g2.getFontMetrics(font).charWidth(cf.c));
+        super.startDraw(g2, x, y);
+    }
+
+    @Override
     public void draw(Graphics2D g2, float x, float y) {
         AffineTransform at = g2.getTransform();
         g2.translate(x, y);
